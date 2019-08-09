@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.origin = new System.Windows.Forms.Button();
             this.output = new System.Windows.Forms.Button();
@@ -37,19 +38,22 @@
             this.reset = new System.Windows.Forms.Button();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.toggle = new System.Windows.Forms.CheckBox();
-            this.filter_txt = new System.Windows.Forms.TextBox();
             this.apply = new System.Windows.Forms.Button();
-            this.wish_txt = new System.Windows.Forms.TextBox();
             this.loadPic = new System.Windows.Forms.Button();
             this.direction = new System.Windows.Forms.PictureBox();
+            this.setting = new System.Windows.Forms.PictureBox();
+            this.settingTip = new System.Windows.Forms.ToolTip(this.components);
+            this.filter_txt = new System.Windows.Forms.Label();
+            this.wish_txt = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.direction)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.setting)).BeginInit();
             this.SuspendLayout();
             // 
             // origin
             // 
             this.origin.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.origin.Location = new System.Drawing.Point(46, 418);
+            this.origin.Location = new System.Drawing.Point(48, 415);
             this.origin.Name = "origin";
             this.origin.Size = new System.Drawing.Size(80, 36);
             this.origin.TabIndex = 0;
@@ -60,7 +64,7 @@
             // output
             // 
             this.output.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.output.Location = new System.Drawing.Point(155, 418);
+            this.output.Location = new System.Drawing.Point(166, 415);
             this.output.Name = "output";
             this.output.Size = new System.Drawing.Size(80, 36);
             this.output.TabIndex = 1;
@@ -87,7 +91,7 @@
             this.filterList.Size = new System.Drawing.Size(95, 327);
             this.filterList.TabIndex = 2;
             this.filterList.DragDrop += new System.Windows.Forms.DragEventHandler(this.filterList_DragDrop);
-            this.filterList.DragOver += new System.Windows.Forms.DragEventHandler(this.filterList_DragOver);
+            this.filterList.DragEnter += new System.Windows.Forms.DragEventHandler(this.filterList_DragEnter);
             this.filterList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.filterList_MouseDown);
             // 
             // wishList
@@ -100,15 +104,14 @@
             this.wishList.Name = "wishList";
             this.wishList.Size = new System.Drawing.Size(95, 327);
             this.wishList.TabIndex = 3;
-            this.wishList.SelectedIndexChanged += new System.EventHandler(this.wishList_SelectedIndexChanged);
             this.wishList.DragDrop += new System.Windows.Forms.DragEventHandler(this.wishList_DragDrop);
-            this.wishList.DragOver += new System.Windows.Forms.DragEventHandler(this.wishList_DragOver);
+            this.wishList.DragEnter += new System.Windows.Forms.DragEventHandler(this.wishList_DragEnter);
             this.wishList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.wishList_MouseDown);
             // 
             // init
             // 
             this.init.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.init.Location = new System.Drawing.Point(310, 416);
+            this.init.Location = new System.Drawing.Point(310, 413);
             this.init.Name = "init";
             this.init.Size = new System.Drawing.Size(100, 38);
             this.init.TabIndex = 4;
@@ -119,7 +122,7 @@
             // reset
             // 
             this.reset.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reset.Location = new System.Drawing.Point(461, 416);
+            this.reset.Location = new System.Drawing.Point(461, 413);
             this.reset.Name = "reset";
             this.reset.Size = new System.Drawing.Size(95, 38);
             this.reset.TabIndex = 5;
@@ -151,38 +154,16 @@
             this.toggle.UseVisualStyleBackColor = false;
             this.toggle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.toggle_MouseClick);
             // 
-            // filter_txt
-            // 
-            this.filter_txt.BackColor = System.Drawing.SystemColors.Control;
-            this.filter_txt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.filter_txt.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filter_txt.Location = new System.Drawing.Point(449, 24);
-            this.filter_txt.Name = "filter_txt";
-            this.filter_txt.Size = new System.Drawing.Size(128, 19);
-            this.filter_txt.TabIndex = 8;
-            this.filter_txt.Text = "[Filter List]";
-            // 
             // apply
             // 
             this.apply.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.apply.Location = new System.Drawing.Point(619, 416);
+            this.apply.Location = new System.Drawing.Point(619, 413);
             this.apply.Name = "apply";
             this.apply.Size = new System.Drawing.Size(95, 38);
             this.apply.TabIndex = 9;
             this.apply.Text = "Apply";
             this.apply.UseVisualStyleBackColor = true;
             this.apply.Click += new System.EventHandler(this.apply_Click);
-            // 
-            // wish_txt
-            // 
-            this.wish_txt.BackColor = System.Drawing.SystemColors.Control;
-            this.wish_txt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.wish_txt.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wish_txt.Location = new System.Drawing.Point(599, 24);
-            this.wish_txt.Name = "wish_txt";
-            this.wish_txt.Size = new System.Drawing.Size(131, 19);
-            this.wish_txt.TabIndex = 10;
-            this.wish_txt.Text = "[Wish Filters]";
             // 
             // loadPic
             // 
@@ -208,18 +189,56 @@
             this.direction.TabStop = false;
             this.direction.Click += new System.EventHandler(this.direction_Click);
             // 
-            // Form1
+            // setting
+            // 
+            this.setting.BackColor = System.Drawing.Color.Transparent;
+            this.setting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.setting.Image = ((System.Drawing.Image)(resources.GetObject("setting.Image")));
+            this.setting.Location = new System.Drawing.Point(572, 116);
+            this.setting.Name = "setting";
+            this.setting.Size = new System.Drawing.Size(30, 30);
+            this.setting.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.setting.TabIndex = 13;
+            this.setting.TabStop = false;
+            this.setting.MouseClick += new System.Windows.Forms.MouseEventHandler(this.setting_MouseClick);
+            this.setting.MouseLeave += new System.EventHandler(this.setting_MouseLeave);
+            this.setting.MouseMove += new System.Windows.Forms.MouseEventHandler(this.setting_MouseMove);
+            // 
+            // filter_txt
+            // 
+            this.filter_txt.AutoSize = true;
+            this.filter_txt.BackColor = System.Drawing.Color.Transparent;
+            this.filter_txt.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filter_txt.Location = new System.Drawing.Point(446, 24);
+            this.filter_txt.Name = "filter_txt";
+            this.filter_txt.Size = new System.Drawing.Size(126, 19);
+            this.filter_txt.TabIndex = 14;
+            this.filter_txt.Text = "[Filter List]";
+            // 
+            // wish_txt
+            // 
+            this.wish_txt.AutoSize = true;
+            this.wish_txt.BackColor = System.Drawing.Color.Transparent;
+            this.wish_txt.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.wish_txt.Location = new System.Drawing.Point(601, 24);
+            this.wish_txt.Name = "wish_txt";
+            this.wish_txt.Size = new System.Drawing.Size(135, 19);
+            this.wish_txt.TabIndex = 15;
+            this.wish_txt.Text = "[Wish Filters]";
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(767, 485);
+            this.ClientSize = new System.Drawing.Size(755, 479);
+            this.Controls.Add(this.wish_txt);
+            this.Controls.Add(this.filter_txt);
+            this.Controls.Add(this.setting);
             this.Controls.Add(this.direction);
             this.Controls.Add(this.loadPic);
-            this.Controls.Add(this.wish_txt);
             this.Controls.Add(this.apply);
-            this.Controls.Add(this.filter_txt);
             this.Controls.Add(this.toggle);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.reset);
@@ -228,11 +247,12 @@
             this.Controls.Add(this.filterList);
             this.Controls.Add(this.output);
             this.Controls.Add(this.origin);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Filter_UI";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.direction)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.setting)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -248,11 +268,13 @@
         private System.Windows.Forms.Button reset;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.CheckBox toggle;
-        private System.Windows.Forms.TextBox filter_txt;
         private System.Windows.Forms.Button apply;
-        private System.Windows.Forms.TextBox wish_txt;
         private System.Windows.Forms.Button loadPic;
         private System.Windows.Forms.PictureBox direction;
+        private System.Windows.Forms.PictureBox setting;
+        private System.Windows.Forms.ToolTip settingTip;
+        private System.Windows.Forms.Label filter_txt;
+        private System.Windows.Forms.Label wish_txt;
     }
 }
 

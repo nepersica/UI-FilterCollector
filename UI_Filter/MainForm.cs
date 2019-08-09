@@ -19,8 +19,10 @@ namespace UI_Filter
         {
             NONE, ORIGINAL, OUTPUT
         }
+
         Data data = new Data();
-        Filter_explain explain = new Filter_explain();
+        Data_th th_data = new Data_th();
+        Filter filter = new Filter();
         Picbox_state state = Picbox_state.NONE;
         Thread thread = null;
 
@@ -28,7 +30,8 @@ namespace UI_Filter
         {
             InitializeComponent();
             output.Hide(); origin.Hide();
-
+            filterList.AllowDrop = true;    wishList.AllowDrop = true;
+            wishList.AllowDrop = true;      filterList.AllowDrop = true;
         }
 
         // origin button
@@ -42,14 +45,14 @@ namespace UI_Filter
 
         // output button
         private void output_Click(object sender, EventArgs e)
-        {                        
+        {
             if (IsAplDataNull() != true)
             {
                 toggle_stop();
 
                 if (toggle.Checked == false)
                 {
-                    if(thread != null)
+                    if (thread != null)
                         thread.Join();
                 }
                 pictureBox.BackgroundImage = data.Get_Aplpic();
@@ -88,7 +91,8 @@ namespace UI_Filter
             data.Set_Aplpic(null);
 
             output.Show(); origin.Show();
-
+            
+            th_data.Initialize();
         }
 
         // initPic button
@@ -100,6 +104,7 @@ namespace UI_Filter
             Empty_wishList();
             output.Hide(); origin.Hide();
             toggle.Checked = false;
+            th_data.Initialize();
         }
 
         // reset button
@@ -123,7 +128,6 @@ namespace UI_Filter
         // apply button
         private void apply_Click(object sender, EventArgs e)
         {
-            Applying filter = new Applying();
             if (data.IsOrgpicNull() == true) { return; }
             if (data.Get_List()?.Any() != true)
             { MessageBox.Show("   필터 목록이 비어있습니다.   \n   필터를 선택해주세요.   "); }
@@ -159,11 +163,6 @@ namespace UI_Filter
                 toggle.Checked = false;
             }
         }
-
-        //private void toggle_CheckedChanged(object sender, EventArgs e)
-        //{
-            
-        //}
 
         private void toggle_stop()      // Original, Output 버튼 누르면 toggle 종료.
         {
@@ -203,79 +202,80 @@ namespace UI_Filter
                 return false;
         }
 
-        // Wish List
-        private void wishList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //if (data.IsOrgpicNull() == true) { return; }
-        }
-
-        // Drag and Drop FilterList items to WishList
+        // filterList 2 wishList
         private void filterList_MouseDown(object sender, MouseEventArgs e)
         {
             if (data.IsOrgpicNull() == true) { return; }
-            if (filterList.Items.Count == 0) return;
             int index = filterList.IndexFromPoint(e.X, e.Y);
             if (index == -1) return;
-
-            /// 오류~
-            string s = filterList.Items[index].ToString();
-            DragDropEffects dde1 = DoDragDrop(s, DragDropEffects.All);
-
-            if (dde1 == DragDropEffects.All)
-                filterList.Items.RemoveAt(filterList.IndexFromPoint(e.X, e.Y));
+            if (e.Button == MouseButtons.Right)
+            {
+                //filter.ControlThreshold
+            }
+            wishList.DoDragDrop(filterList.SelectedItem.ToString(), DragDropEffects.Copy);
         }
-
-        private void wishList_DragOver(object sender, DragEventArgs e)
+        private void wishList_DragEnter(object sender, DragEventArgs e)
         {
-            e.Effect = DragDropEffects.All;
+            if (e.Data.GetDataPresent(DataFormats.Text))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
         }
-
         private void wishList_DragDrop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.StringFormat))
+            string item = (string)e.Data.GetData(DataFormats.Text);
+            if (wishList.Items.Contains(item))
             {
-                string str = (string)e.Data.GetData(DataFormats.StringFormat);
-                data.Add_Item(str);
-                wishList.Items.Add(str);
             }
-            data.Print_List();
-            WriteLine();
+            else
+            {
+                data.Add_Item(item);
+                wishList.Items.Add(item);
+                filterList.Items.Remove(item);
+            }
         }
 
-        // Drag and Drop WishList items to FilterList
+        // wishList 2 filterList
         private void wishList_MouseDown(object sender, MouseEventArgs e)
         {
             if (data.IsOrgpicNull() == true) { return; }
-            if (wishList.Items.Count == 0) return;
             int index = wishList.IndexFromPoint(e.X, e.Y);
             if (index == -1) return;
-
-            string s = wishList.Items[index].ToString();
-            DragDropEffects dde1 = DoDragDrop(s, DragDropEffects.All);
-
-            if (dde1 == DragDropEffects.All)
-                wishList.Items.RemoveAt(wishList.IndexFromPoint(e.X, e.Y));
+            filterList.DoDragDrop(wishList.SelectedItem.ToString(), DragDropEffects.Copy);
         }
-        private void filterList_DragOver(object sender, DragEventArgs e)
+        private void filterList_DragEnter(object sender, DragEventArgs e)
         {
-            e.Effect = DragDropEffects.All;
+            if (e.Data.GetDataPresent(DataFormats.Text))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
         }
         private void filterList_DragDrop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.StringFormat))
+            string item = (string)e.Data.GetData(DataFormats.Text);
+            if (filterList.Items.Contains(item))
             {
-                string str = (string)e.Data.GetData(DataFormats.StringFormat);
-                data.Trash_Item(str);
-                filterList.Items.Add(str);
             }
-            data.Print_List();
-            WriteLine();
+            else
+            {
+                data.Trash_Item(item);
+                filterList.Items.Add(item);
+                wishList.Items.Remove(item);
+            }
         }
 
         private void direction_Click(object sender, EventArgs e)
         {
             if (data.IsOrgpicNull() == true) { return; }
-            
+
             foreach (string item in filterList.Items)
             {
                 wishList.Items.Add(item);
@@ -284,6 +284,23 @@ namespace UI_Filter
             filterList.Items.Clear();
         }
 
+        private void setting_MouseMove(object sender, MouseEventArgs e)
+        {
+            this.settingTip.ToolTipTitle = "Setting";
+            this.settingTip.IsBalloon = true;
+            this.settingTip.SetToolTip(this.setting, "Set the Filters' thresholds.");
+        }
 
+        private void setting_MouseLeave(object sender, EventArgs e)
+        {
+            this.settingTip.Hide(this);
+        }
+
+        private void setting_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (data.IsOrgpicNull() == true) { return; }
+
+            filter.Control_Threshold();
+        }
     }
 }
