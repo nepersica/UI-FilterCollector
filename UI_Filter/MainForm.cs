@@ -11,6 +11,7 @@ using System.Threading;
 using static System.Console;    // like <iostream>
 using OpenCvSharp;              // OpenCV 라이브러리.
 
+
 namespace UI_Filter
 {
     public partial class MainForm : Form   // Partial class : 하나의 클래스를 2개 이상의 파일에 나누어 정의할 수 있음.
@@ -23,21 +24,26 @@ namespace UI_Filter
         Data data = new Data();
         Data_th th_data = new Data_th();
         Filter filter = new Filter();
+        Line_DragnDrop line = new Line_DragnDrop();
         Picbox_state state = Picbox_state.NONE;
-        Thread thread = null;
+        Thread toggle_thread = null;
+
+
+        int previousPoint = 182;
 
         public MainForm()
         {
             InitializeComponent();
             output.Hide(); origin.Hide();
-            filterList.AllowDrop = true;    wishList.AllowDrop = true;
-            wishList.AllowDrop = true;      filterList.AllowDrop = true;
+            filterList.AllowDrop = true; wishList.AllowDrop = true;
+            wishList.AllowDrop = true; filterList.AllowDrop = true;
         }
 
         // origin button
         private void origin_Click(object sender, EventArgs e)
         {
-            toggle_stop();
+            Toggle_stop();
+            compare_stop();
 
             pictureBox.BackgroundImage = data.Get_Orgpic();
             state = Picbox_state.ORIGINAL;
@@ -48,12 +54,13 @@ namespace UI_Filter
         {
             if (IsAplDataNull() != true)
             {
-                toggle_stop();
+                Toggle_stop();
+                compare_stop();
 
                 if (toggle.Checked == false)
                 {
-                    if (thread != null)
-                        thread.Join();
+                    if (toggle_thread != null)
+                        toggle_thread.Join();
                 }
                 pictureBox.BackgroundImage = data.Get_Aplpic();
                 state = Picbox_state.OUTPUT;
@@ -74,7 +81,8 @@ namespace UI_Filter
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 file_path = ofd.FileName;   // 선택된 파일의 풀 경로를 저장.
-                toggle_stop();
+                Toggle_stop();
+                compare_stop();
             }
             else
                 return;
@@ -91,7 +99,7 @@ namespace UI_Filter
             data.Set_Aplpic(null);
 
             output.Show(); origin.Show();
-            
+
             th_data.Initialize();
         }
 
@@ -104,11 +112,12 @@ namespace UI_Filter
             Empty_wishList();
             output.Hide(); origin.Hide();
             toggle.Checked = false;
+            compare.Checked = false;
             th_data.Initialize();
         }
 
-        // reset button
-        private void reset_Click(object sender, EventArgs e)
+        // reset button 
+        private void Reset_Click(object sender, EventArgs e)
         {
             if (data.IsOrgpicNull() == true) { return; }
 
@@ -119,10 +128,13 @@ namespace UI_Filter
         {
             foreach (string filter in data.Get_List())
             {
-                filterList.Items.Add(filter);
-                wishList.Items.Remove(filter);
+                if (!filterList.Items.Contains(filter))
+                {
+                    filterList.Items.Add(filter);
+                    wishList.Items.Remove(filter);
+                }
             }
-            data.Init_List();
+            //data.Init_List();
         }
 
         // apply button
@@ -131,10 +143,16 @@ namespace UI_Filter
             if (data.IsOrgpicNull() == true) { return; }
             if (data.Get_List()?.Any() != true)
             { MessageBox.Show("   필터 목록이 비어있습니다.   \n   필터를 선택해주세요.   "); }
-
             Bitmap pic = filter.Applied_Filters(data);
-            pictureBox.BackgroundImage = pic;
-            state = Picbox_state.OUTPUT;
+            if (compare.Checked == true)
+            {
+                pictureBox.BackgroundImage = line.Redrawing(data.Get_Orgpic(), pic);
+            }
+            else
+            {
+                pictureBox.BackgroundImage = pic;
+            }
+            state = Picbox_state.OUTPUT; 
             data.Set_Aplpic(pic);
         }
 
@@ -148,14 +166,15 @@ namespace UI_Filter
 
                 if (toggle.Checked == false)
                 {
-                    thread.Join();
-                    thread = null;
+                    toggle_thread.Join();
+                    toggle_thread = null;
                     pictureBox.BackgroundImage = data.Get_Orgpic();
                 }
                 else
                 {
-                    thread = new Thread(new ThreadStart(Toggling));
-                    thread.Start();
+                    compare.Checked = false;
+                    toggle_thread = new Thread(new ThreadStart(Toggling));
+                    toggle_thread.Start();
                 }
             }
             else
@@ -164,7 +183,7 @@ namespace UI_Filter
             }
         }
 
-        private void toggle_stop()      // Original, Output 버튼 누르면 toggle 종료.
+        private void Toggle_stop()      // Original, Output 버튼 누르면 toggle 종료.
         {
             if (toggle.Checked == true)
             {
@@ -302,5 +321,90 @@ namespace UI_Filter
 
             filter.Control_Threshold();
         }
+
+        private void compare_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (data.IsOrgpicNull() == true) { compare.Checked = false; }
+            if (data.Get_Aplpic() == null)
+            {
+                MessageBox.Show("   필터를 먼저 적용시켜주세요.   ");
+                compare.Checked = false;
+            }
+            if (compare.Checked == true)
+            {
+                Toggle_stop();
+                pictureBox.BackgroundImage = line.Init_Line(data);
+            }
+            else
+            {
+                pictureBox.BackgroundImage = data.Get_Orgpic();
+            }
+        }
+
+        public bool DraggingFromPicBox = false;
+
+        private void pictureBox_MouseDown(object sender, MouseEventArgs e)  // 마우스 이동
+        {
+            if (compare.Checked == true)
+            {
+                if (data.IsOrgpicNull() == true) { return; }
+                if (e.Button == MouseButtons.Left)
+                {
+                    if (Math.Abs(previousPoint - e.Location.X) < 10)
+                    {
+                        DraggingFromPicBox = true;
+                        line.Check_Position(e.Location, pictureBox, data);
+                    }                                            
+                }
+            }
+            else { }
+        }
+
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (DraggingFromPicBox)
+            {
+                if (Math.Abs(previousPoint-e.Location.X) < 5)
+                    return;
+
+                if (compare.Checked == true)
+                {
+                    previousPoint = e.Location.X;
+                    if (previousPoint < 0)
+                    {
+                        previousPoint = 0;
+                    }
+                    else if (previousPoint >= pictureBox.Width)
+                    {
+                        previousPoint = pictureBox.Width-1;
+                    }
+                    Bitmap bmp = line.Cal_xCoord(previousPoint / (double)pictureBox.Width, data.Get_Orgpic(), data.Get_Aplpic(), pictureBox);
+                    
+                    pictureBox.BackgroundImage = bmp;
+
+                    pictureBox.Refresh();                    
+                }
+            }
+            else { }
+        }
+
+        private void pictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (DraggingFromPicBox)
+            {
+                DraggingFromPicBox = false;
+            }
+        }
+
+        private void compare_stop()
+        {
+            if (compare.Checked == true)
+            {
+                compare.Checked = false;
+                pictureBox.BackgroundImage = data.Get_Orgpic();
+            }
+        }
+
+
     }
 }

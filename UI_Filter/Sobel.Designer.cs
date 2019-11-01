@@ -57,7 +57,6 @@
             this.sobel_x.TabIndex = 28;
             this.sobel_x.Text = "0";
             this.sobel_x.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.sobel_x.TextChanged += new System.EventHandler(this.sobel_x_TextChanged);
             this.sobel_x.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.sobel_x_KeyPress);
             this.sobel_x.Leave += new System.EventHandler(this.sobel_x_Leave);
             // 

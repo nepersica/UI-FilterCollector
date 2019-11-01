@@ -45,6 +45,8 @@
             this.settingTip = new System.Windows.Forms.ToolTip(this.components);
             this.filter_txt = new System.Windows.Forms.Label();
             this.wish_txt = new System.Windows.Forms.Label();
+            this.togetherTip = new System.Windows.Forms.ToolTip(this.components);
+            this.compare = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.direction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.setting)).BeginInit();
@@ -53,9 +55,10 @@
             // origin
             // 
             this.origin.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.origin.Location = new System.Drawing.Point(48, 415);
+            this.origin.Location = new System.Drawing.Point(55, 519);
+            this.origin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.origin.Name = "origin";
-            this.origin.Size = new System.Drawing.Size(80, 36);
+            this.origin.Size = new System.Drawing.Size(91, 45);
             this.origin.TabIndex = 0;
             this.origin.Text = "Origin";
             this.origin.UseVisualStyleBackColor = true;
@@ -64,9 +67,10 @@
             // output
             // 
             this.output.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.output.Location = new System.Drawing.Point(166, 415);
+            this.output.Location = new System.Drawing.Point(190, 519);
+            this.output.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.output.Name = "output";
-            this.output.Size = new System.Drawing.Size(80, 36);
+            this.output.Size = new System.Drawing.Size(91, 45);
             this.output.TabIndex = 1;
             this.output.Text = "Output";
             this.output.UseVisualStyleBackColor = true;
@@ -77,7 +81,7 @@
             this.filterList.AllowDrop = true;
             this.filterList.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.filterList.FormattingEnabled = true;
-            this.filterList.ItemHeight = 19;
+            this.filterList.ItemHeight = 23;
             this.filterList.Items.AddRange(new object[] {
             "Canny",
             "Gaussian",
@@ -86,9 +90,10 @@
             "Sobel",
             "Laplacian",
             "Flip"});
-            this.filterList.Location = new System.Drawing.Point(461, 58);
+            this.filterList.Location = new System.Drawing.Point(527, 72);
+            this.filterList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.filterList.Name = "filterList";
-            this.filterList.Size = new System.Drawing.Size(95, 327);
+            this.filterList.Size = new System.Drawing.Size(108, 395);
             this.filterList.TabIndex = 2;
             this.filterList.DragDrop += new System.Windows.Forms.DragEventHandler(this.filterList_DragDrop);
             this.filterList.DragEnter += new System.Windows.Forms.DragEventHandler(this.filterList_DragEnter);
@@ -99,10 +104,11 @@
             this.wishList.AllowDrop = true;
             this.wishList.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.wishList.FormattingEnabled = true;
-            this.wishList.ItemHeight = 19;
-            this.wishList.Location = new System.Drawing.Point(619, 58);
+            this.wishList.ItemHeight = 23;
+            this.wishList.Location = new System.Drawing.Point(707, 72);
+            this.wishList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.wishList.Name = "wishList";
-            this.wishList.Size = new System.Drawing.Size(95, 327);
+            this.wishList.Size = new System.Drawing.Size(108, 395);
             this.wishList.TabIndex = 3;
             this.wishList.DragDrop += new System.Windows.Forms.DragEventHandler(this.wishList_DragDrop);
             this.wishList.DragEnter += new System.Windows.Forms.DragEventHandler(this.wishList_DragEnter);
@@ -111,9 +117,10 @@
             // init
             // 
             this.init.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.init.Location = new System.Drawing.Point(310, 413);
+            this.init.Location = new System.Drawing.Point(354, 516);
+            this.init.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.init.Name = "init";
-            this.init.Size = new System.Drawing.Size(100, 38);
+            this.init.Size = new System.Drawing.Size(114, 48);
             this.init.TabIndex = 4;
             this.init.Text = "InitData";
             this.init.UseVisualStyleBackColor = true;
@@ -122,33 +129,39 @@
             // reset
             // 
             this.reset.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reset.Location = new System.Drawing.Point(461, 413);
+            this.reset.Location = new System.Drawing.Point(527, 516);
+            this.reset.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.reset.Name = "reset";
-            this.reset.Size = new System.Drawing.Size(95, 38);
+            this.reset.Size = new System.Drawing.Size(109, 48);
             this.reset.TabIndex = 5;
             this.reset.Text = "Reset";
             this.reset.UseVisualStyleBackColor = true;
-            this.reset.Click += new System.EventHandler(this.reset_Click);
+            this.reset.Click += new System.EventHandler(this.Reset_Click);
             // 
             // pictureBox
             // 
             this.pictureBox.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox.Location = new System.Drawing.Point(46, 58);
+            this.pictureBox.Location = new System.Drawing.Point(53, 72);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(364, 328);
+            this.pictureBox.Size = new System.Drawing.Size(416, 410);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox.TabIndex = 6;
             this.pictureBox.TabStop = false;
+            this.pictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseDown);
+            this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
+            this.pictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseUp);
             // 
             // toggle
             // 
             this.toggle.AutoSize = true;
             this.toggle.BackColor = System.Drawing.Color.Transparent;
             this.toggle.Font = new System.Drawing.Font("Consolas", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toggle.Location = new System.Drawing.Point(46, 19);
+            this.toggle.Location = new System.Drawing.Point(53, 24);
+            this.toggle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.toggle.Name = "toggle";
-            this.toggle.Size = new System.Drawing.Size(82, 24);
+            this.toggle.Size = new System.Drawing.Size(106, 30);
             this.toggle.TabIndex = 7;
             this.toggle.Text = "Toggle";
             this.toggle.UseVisualStyleBackColor = false;
@@ -157,9 +170,10 @@
             // apply
             // 
             this.apply.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.apply.Location = new System.Drawing.Point(619, 413);
+            this.apply.Location = new System.Drawing.Point(707, 516);
+            this.apply.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.apply.Name = "apply";
-            this.apply.Size = new System.Drawing.Size(95, 38);
+            this.apply.Size = new System.Drawing.Size(109, 48);
             this.apply.TabIndex = 9;
             this.apply.Text = "Apply";
             this.apply.UseVisualStyleBackColor = true;
@@ -168,9 +182,10 @@
             // loadPic
             // 
             this.loadPic.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.loadPic.Location = new System.Drawing.Point(310, 12);
+            this.loadPic.Location = new System.Drawing.Point(354, 15);
+            this.loadPic.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.loadPic.Name = "loadPic";
-            this.loadPic.Size = new System.Drawing.Size(100, 38);
+            this.loadPic.Size = new System.Drawing.Size(114, 48);
             this.loadPic.TabIndex = 11;
             this.loadPic.Text = "LoadPic";
             this.loadPic.UseVisualStyleBackColor = true;
@@ -181,9 +196,10 @@
             this.direction.BackColor = System.Drawing.Color.Transparent;
             this.direction.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.direction.Image = ((System.Drawing.Image)(resources.GetObject("direction.Image")));
-            this.direction.Location = new System.Drawing.Point(562, 189);
+            this.direction.Location = new System.Drawing.Point(642, 236);
+            this.direction.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.direction.Name = "direction";
-            this.direction.Size = new System.Drawing.Size(51, 44);
+            this.direction.Size = new System.Drawing.Size(58, 55);
             this.direction.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.direction.TabIndex = 12;
             this.direction.TabStop = false;
@@ -194,9 +210,10 @@
             this.setting.BackColor = System.Drawing.Color.Transparent;
             this.setting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.setting.Image = ((System.Drawing.Image)(resources.GetObject("setting.Image")));
-            this.setting.Location = new System.Drawing.Point(572, 116);
+            this.setting.Location = new System.Drawing.Point(654, 145);
+            this.setting.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.setting.Name = "setting";
-            this.setting.Size = new System.Drawing.Size(30, 30);
+            this.setting.Size = new System.Drawing.Size(34, 38);
             this.setting.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.setting.TabIndex = 13;
             this.setting.TabStop = false;
@@ -209,9 +226,9 @@
             this.filter_txt.AutoSize = true;
             this.filter_txt.BackColor = System.Drawing.Color.Transparent;
             this.filter_txt.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filter_txt.Location = new System.Drawing.Point(446, 24);
+            this.filter_txt.Location = new System.Drawing.Point(510, 30);
             this.filter_txt.Name = "filter_txt";
-            this.filter_txt.Size = new System.Drawing.Size(126, 19);
+            this.filter_txt.Size = new System.Drawing.Size(153, 23);
             this.filter_txt.TabIndex = 14;
             this.filter_txt.Text = "[Filter List]";
             // 
@@ -220,19 +237,33 @@
             this.wish_txt.AutoSize = true;
             this.wish_txt.BackColor = System.Drawing.Color.Transparent;
             this.wish_txt.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.wish_txt.Location = new System.Drawing.Point(601, 24);
+            this.wish_txt.Location = new System.Drawing.Point(687, 30);
             this.wish_txt.Name = "wish_txt";
-            this.wish_txt.Size = new System.Drawing.Size(135, 19);
+            this.wish_txt.Size = new System.Drawing.Size(164, 23);
             this.wish_txt.TabIndex = 15;
             this.wish_txt.Text = "[Wish Filters]";
             // 
+            // compare
+            // 
+            this.compare.AutoSize = true;
+            this.compare.BackColor = System.Drawing.Color.Transparent;
+            this.compare.Font = new System.Drawing.Font("Consolas", 12.75F);
+            this.compare.Location = new System.Drawing.Point(177, 24);
+            this.compare.Name = "compare";
+            this.compare.Size = new System.Drawing.Size(118, 30);
+            this.compare.TabIndex = 17;
+            this.compare.Text = "Compare";
+            this.compare.UseVisualStyleBackColor = false;
+            this.compare.MouseClick += new System.Windows.Forms.MouseEventHandler(this.compare_MouseClick);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(755, 479);
+            this.ClientSize = new System.Drawing.Size(863, 599);
+            this.Controls.Add(this.compare);
             this.Controls.Add(this.wish_txt);
             this.Controls.Add(this.filter_txt);
             this.Controls.Add(this.setting);
@@ -247,6 +278,7 @@
             this.Controls.Add(this.filterList);
             this.Controls.Add(this.output);
             this.Controls.Add(this.origin);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Filter_UI";
@@ -275,6 +307,8 @@
         private System.Windows.Forms.ToolTip settingTip;
         private System.Windows.Forms.Label filter_txt;
         private System.Windows.Forms.Label wish_txt;
+        private System.Windows.Forms.ToolTip togetherTip;
+        private System.Windows.Forms.CheckBox compare;
     }
 }
 

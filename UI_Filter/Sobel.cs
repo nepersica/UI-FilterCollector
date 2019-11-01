@@ -31,6 +31,7 @@ namespace UI_Filter
             data.Set_Sbx(Convert.ToInt32(sobel_x.Text));
             sb_y = sobel_y.Text;
             data.Set_Sby(Convert.ToInt32(sobel_y.Text));
+            this.Close();
         }
 
         public TextBox Get_Sbx()
@@ -64,11 +65,6 @@ namespace UI_Filter
         public void Initialize_sb()
         {
             sobel_x.Text = "0"; sobel_y.Text = "1";
-        }
-
-        private void sobel_x_TextChanged(object sender, EventArgs e)
-        {
-            //this.sobel_x.KeyPress += new EventHandler(sobel_x_KeyPress);
         }
     }
 }

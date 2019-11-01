@@ -8,16 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Console;    
-using OpenCvSharp;              
+using OpenCvSharp;
 
 
 namespace UI_Filter
 {
     class Data
     {
-        Bitmap org_picture;    Bitmap applied_picture;
+        Bitmap org_picture; Bitmap applied_picture;
         List<string> list = new List<string>();
-                
+
         public void Set_Orgpic(Bitmap picture)
         {
             this.org_picture = picture;
@@ -75,6 +75,58 @@ namespace UI_Filter
             list.ForEach(Console.WriteLine);
         }
 
-       
+
     }
 }
+
+//namespace UI_Filter
+//{
+//    interface Data<T>
+//    {
+//        void add(T book);
+
+//        void delete();
+
+//        T get();
+//    }
+
+ 
+//    class List : Data<string>
+//    {
+//        string book;
+//        public void add(string book)
+//        {
+//            this.book = book;
+//        }
+
+//        public void delete()
+//        {
+//            this.book = default(string);
+//        }
+
+//        public string get()
+//        {
+//            return this.book;
+//        }
+//    }
+
+//    class Image : Data<Bitmap>
+//    {
+//        Bitmap img;
+//        public void add(Bitmap img)
+//        {
+//            this.img = img;
+//        }
+
+//        public void delete()
+//        {
+//            this.img = default(Bitmap);
+//        }
+
+//        public Bitmap get()
+//        {
+//            return this.img;
+//        }
+//    }    
+//}
+

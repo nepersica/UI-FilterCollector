@@ -15,11 +15,6 @@ namespace UI_Filter
     class Filter
     {
         Threshold th = new Threshold();
-        
-
-        public Filter()
-        {
-        }
 
         public Bitmap Applied_Filters(Data data)
         {
@@ -66,7 +61,6 @@ namespace UI_Filter
         public void Control_Threshold()
         {
             th.ShowDialog();
-
         }
 
         private Mat Canny(Mat picture, Mat result)

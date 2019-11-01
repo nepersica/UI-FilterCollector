@@ -38,6 +38,7 @@ namespace UI_Filter
             data.Set_Shsigma(Convert.ToInt32(sharp_sigma.Text));
             data.Set_Shth1(Convert.ToDouble(sharp_th1.Text));
             data.Set_Shth2(Convert.ToDouble(sharp_th2.Text));
+            this.Close();
         }
         
         private void canny_th1_keypress(object sender, KeyPressEventArgs e)
@@ -129,6 +130,7 @@ namespace UI_Filter
             //s_th.
             //WriteLine();
         }
+
         // Sobel Tooltip
         private void sobel_MouseMove(object sender, MouseEventArgs e)
         {
@@ -147,6 +149,6 @@ namespace UI_Filter
             data.Initialize();
             Initialize_txt();
         }
-
+        
     }
 }
